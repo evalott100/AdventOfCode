@@ -1,14 +1,17 @@
-import re
-
-PATTERN = r"\d"
-
 # ===========================================================
 # === TERRIBLE SOLUTION BUT I'M EEPY SO IT'LL HAVE TO DO ====
-# === ... Actually not too bad - 0.036s for both parts ======
+# === ...Actually not too bad: 7ms for both parts together ==
 # ===========================================================
 
+from time import time_ns
+import re
+
+start_time = time_ns()
+
 # Adding in dummy characters so replacement doesn't interfere
-# with other string numbers
+# with other string numbers:
+# "nineighthree" should go to "983" not "9igh3"
+
 STRING_VALUES = {
     "one": "o1e",
     "two": "t2o",
@@ -34,7 +37,7 @@ def convert_substrings(string):
 
 
 def first_last_int(string):
-    search = re.findall(PATTERN, string)
+    search = re.findall(r"\d", string)
     tens = search[0]
     # Works even if there's only one digit
     units = search[-1]
@@ -51,3 +54,6 @@ def part_2():
 
 print(part_1())
 print(part_2())
+
+time_elapsed = time_ns() - start_time
+print(f"{time_elapsed * 10**-6}ms")
